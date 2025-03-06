@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark Attendance - Jet Club</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #0c4884, #044a61);
+            color: white;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        header .title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        header nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
+        header .profile {
+            font-size: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1.5s ease;
+        }
+
+        .container h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            color: #f0f8ff;
+        }
+
+        .manual-attendance, .auto-attendance {
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+        }
+
+        td {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        input[type="checkbox"] {
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            background-color: #0c4884;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #044a61;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #qrScanner {
+            width: 100%;
+            height: 300px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="title">Jet Club - Mark Attendance</div>
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="reports.html">Reports</a>
+            <a href="settings.html">Settings</a>
+        </nav>
+        <div class="profile">Logged in as: Admin</div>
+    </header>
+
+    <div class="container">
+        <h2>Mark Attendance</h2>
+
+        <!-- Manual Attendance Section -->
+        <div class="manual-attendance">
+            <h3>Manual Attendance</h3>
+            <input type="text" id="searchBar" placeholder="Search members..." onkeyup="filterMembers()">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>ID</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="memberList">
+                    <tr>
+                        <td>John Doe</td>
+                        <td>12345</td>
+                        <td><input type="checkbox" checked></td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>67890</td>
+                        <td><input type="checkbox"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button onclick="saveAttendance()">Save Attendance</button>
+        </div>
+
+        <!-- QR Code Attendance Section -->
+        <div class="auto-attendance">
+            <h3>QR Code Attendance</h3>
+            <div id="qrScanner">QR Scanner Loading...</div>
+            <p class="message">Scan a QR code to mark attendance.</p>
+        </div>
+    </div>
+
+    <script>
+        // Simulate saving attendance
+        function saveAttendance() {
+            alert('Attendance saved successfully!');
+        }
+
+        // Filter members in the manual attendance section
+        function filterMembers() {
+            const searchValue = document.getElementById('searchBar').value.toLowerCase();
+            const rows = document.querySelectorAll('#memberList tr');
+
+            rows.forEach(row => {
+                const name = row.cells[0].textContent.toLowerCase();
+                const id = row.cells[1].textContent.toLowerCase();
+
+                if (name.includes(searchValue) || id.includes(searchValue)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Simulate QR Scanner functionality
+        document.getElementById('qrScanner').textContent = 'Ready to Scan';
+    </script>
+</body>
+</html>
